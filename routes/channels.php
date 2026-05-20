@@ -6,6 +6,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
+// Private channel per mesin — hanya user authenticated
 Broadcast::channel('machine.{id}', function ($user, $id) {
-    return true; // semua user yang authenticated bisa subscribe
+    return auth()->check();
 });
