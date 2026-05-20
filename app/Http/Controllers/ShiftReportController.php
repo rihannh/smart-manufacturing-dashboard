@@ -40,45 +40,39 @@ class ShiftReportController extends Controller
         $shiftDate = $request->shift_date;
         $shift     = $request->shift;
 
-        // Ambil mesin-mesin yang perlu di-generate
-        $machines = $request->machine_id
-            ? Machine::where('id', $request->machine_id)->get()
-            : Machine::all();
+        // Gunakan Aggregate Query untuk menghindari N+1 dan kelebihan RAM
+        $aggregateQuery = ProductionLog::selectRaw('
+                machine_id,
+                SUM(output_count) as total_output,
+                AVG(temperature) as avg_temp,
+                SUM(CASE WHEN status = "Running" THEN 1 ELSE 0 END) as uptime_logs,
+                SUM(CASE WHEN status IN ("Error", "Maintenance") THEN 1 ELSE 0 END) as downtime_logs
+            ')
+            ->where('shift', $shift)
+            ->whereDate('logged_at', $shiftDate);
 
-        foreach ($machines as $machine) {
-            // Ambil production_logs berdasarkan shift + date + machine
-            $logs = ProductionLog::where('machine_id', $machine->id)
-                ->where('shift', $shift)
-                ->whereDate('logged_at', $shiftDate)
-                ->get();
+        if ($request->machine_id) {
+            $aggregateQuery->where('machine_id', $request->machine_id);
+        }
 
-            if ($logs->isEmpty()) {
-                continue;
-            }
+        $aggregates = $aggregateQuery->groupBy('machine_id')->get();
 
-            $totalOutput    = $logs->sum('output_count');
-            $avgTemperature = round($logs->avg('temperature'), 2);
+        $intervalMinutes = 3 / 60; // default interval simulator = 3 detik ≈ 0.05 menit per log
 
-            // Hitung uptime (Running) dan downtime (Error/Maintenance)
-            // Setiap log merepresentasikan interval dari simulator
-            $intervalMinutes = 3 / 60; // default interval simulator = 3 detik ≈ 0.05 menit per log
-
-            $uptimeLogs   = $logs->where('status', 'Running')->count();
-            $downtimeLogs = $logs->whereIn('status', ['Error', 'Maintenance'])->count();
-
-            $uptimeMinutes   = (int) round($uptimeLogs * $intervalMinutes);
-            $downtimeMinutes = (int) round($downtimeLogs * $intervalMinutes);
+        foreach ($aggregates as $agg) {
+            $uptimeMinutes   = (int) round($agg->uptime_logs * $intervalMinutes);
+            $downtimeMinutes = (int) round($agg->downtime_logs * $intervalMinutes);
 
             // Upsert ke shift_reports
             ShiftReport::updateOrCreate(
                 [
-                    'machine_id' => $machine->id,
+                    'machine_id' => $agg->machine_id,
                     'shift_date' => $shiftDate,
                     'shift'      => $shift,
                 ],
                 [
-                    'total_output'     => $totalOutput,
-                    'avg_temperature'  => $avgTemperature,
+                    'total_output'     => $agg->total_output,
+                    'avg_temperature'  => round($agg->avg_temp, 2),
                     'uptime_minutes'   => $uptimeMinutes,
                     'downtime_minutes' => $downtimeMinutes,
                 ]

@@ -13,7 +13,10 @@ class DashboardController extends Controller
     {
         $machines = Machine::with('operator')->get();
 
-        $statusCounts = $machines->groupBy('status')->map->count();
+        $statusCounts = Machine::toBase()
+            ->select('status', \Illuminate\Support\Facades\DB::raw('count(*) as count'))
+            ->groupBy('status')
+            ->pluck('count', 'status');
 
         $totalOutputToday = ProductionLog::whereDate('logged_at', today())->sum('output_count');
 
