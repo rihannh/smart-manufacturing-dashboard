@@ -3,14 +3,15 @@
 namespace App\Events;
 
 use App\Models\Machine;
+use App\Models\ProductionLog;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MachineDataUpdated implements ShouldBroadcast
+class MachineDataUpdated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -43,14 +44,16 @@ class MachineDataUpdated implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
-            'id'                => $this->machine->id,
-            'name'              => $this->machine->name,
-            'type'              => $this->machine->type,
-            'status'            => $this->machine->status,
-            'temperature'       => (float) $this->machine->temperature,
-            'output_per_minute' => $this->machine->output_per_minute,
-            'current_operator'  => $this->machine->operator?->name,
-            'updated_at'        => $this->machine->updated_at->toISOString(),
+            'id'                 => $this->machine->id,
+            'name'               => $this->machine->name,
+            'type'               => $this->machine->type,
+            'status'             => $this->machine->status,
+            'temperature'        => (float) $this->machine->temperature,
+            'output_per_minute'  => $this->machine->output_per_minute,
+            'current_operator'   => $this->machine->operator?->name,
+            'updated_at'         => $this->machine->updated_at->toISOString(),
+            'total_output_today' => (int) ProductionLog::whereDate('logged_at', today())->sum('output_count'),
         ];
     }
 }
+

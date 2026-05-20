@@ -13,10 +13,11 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import type { Machine, PaginatedData } from '@/types';
+import type { Machine, PaginatedData, Auth } from '@/types';
 
 interface MachinesIndexProps {
     machines: PaginatedData<Machine>;
+    auth: Auth;
 }
 
 const statusConfig: Record<string, string> = {
@@ -27,7 +28,8 @@ const statusConfig: Record<string, string> = {
 };
 
 export default function MachinesIndex() {
-    const { machines } = usePage<{ props: MachinesIndexProps }>().props as unknown as MachinesIndexProps;
+    const { machines, auth } = usePage<{ props: MachinesIndexProps }>().props as unknown as MachinesIndexProps;
+    const isAdmin = auth.user.role === 'admin';
     const [deleteTarget, setDeleteTarget] = useState<Machine | null>(null);
 
     const handleDelete = () => {
@@ -44,12 +46,14 @@ export default function MachinesIndex() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <h1 className="text-lg font-semibold">Daftar Mesin</h1>
-                    <Button asChild size="sm">
-                        <Link href="/machines/create">
-                            <Plus className="mr-1 size-3.5" />
-                            Tambah Mesin
-                        </Link>
-                    </Button>
+                    {isAdmin && (
+                        <Button asChild size="sm">
+                            <Link href="/machines/create">
+                                <Plus className="mr-1 size-3.5" />
+                                Tambah Mesin
+                            </Link>
+                        </Button>
+                    )}
                 </div>
 
                 {/* Table */}
@@ -65,7 +69,7 @@ export default function MachinesIndex() {
                                         <th className="px-4 py-3 text-right font-medium">Suhu (°C)</th>
                                         <th className="px-4 py-3 text-right font-medium">Output/min</th>
                                         <th className="px-4 py-3 text-left font-medium">Operator</th>
-                                        <th className="px-4 py-3 text-right font-medium">Aksi</th>
+                                        {isAdmin && <th className="px-4 py-3 text-right font-medium">Aksi</th>}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,23 +92,25 @@ export default function MachinesIndex() {
                                                 <td className="px-4 py-3 text-right tabular-nums">{machine.temperature}</td>
                                                 <td className="px-4 py-3 text-right tabular-nums">{machine.output_per_minute}</td>
                                                 <td className="px-4 py-3">{machine.operator?.name ?? '-'}</td>
-                                                <td className="px-4 py-3 text-right">
-                                                    <div className="flex justify-end gap-1">
-                                                        <Button variant="ghost" size="sm" asChild>
-                                                            <Link href={`/machines/${machine.id}/edit`}>
-                                                                <Pencil className="size-3.5" />
-                                                            </Link>
-                                                        </Button>
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            onClick={() => setDeleteTarget(machine)}
-                                                            className="text-red-500 hover:text-red-600"
-                                                        >
-                                                            <Trash2 className="size-3.5" />
-                                                        </Button>
-                                                    </div>
-                                                </td>
+                                                {isAdmin && (
+                                                    <td className="px-4 py-3 text-right">
+                                                        <div className="flex justify-end gap-1">
+                                                            <Button variant="ghost" size="sm" asChild>
+                                                                <Link href={`/machines/${machine.id}/edit`}>
+                                                                    <Pencil className="size-3.5" />
+                                                                </Link>
+                                                            </Button>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="sm"
+                                                                onClick={() => setDeleteTarget(machine)}
+                                                                className="text-red-500 hover:text-red-600"
+                                                            >
+                                                                <Trash2 className="size-3.5" />
+                                                            </Button>
+                                                        </div>
+                                                    </td>
+                                                )}
                                             </tr>
                                         ))
                                     )}

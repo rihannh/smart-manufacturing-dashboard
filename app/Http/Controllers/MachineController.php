@@ -6,11 +6,23 @@ use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class MachineController extends Controller
+class MachineController extends Controller implements HasMiddleware
 {
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('admin', except: ['index', 'show']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

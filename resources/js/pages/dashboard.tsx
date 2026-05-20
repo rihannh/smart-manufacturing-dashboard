@@ -25,6 +25,7 @@ interface MachineUpdatePayload {
     output_per_minute: number;
     current_operator: string | null;
     updated_at: string;
+    total_output_today: number;
 }
 
 export default function Dashboard() {
@@ -55,10 +56,8 @@ export default function Dashboard() {
                 ),
             );
 
-            // Accumulate output
-            if (e.output_per_minute > 0) {
-                setTotalOutput(prev => prev + e.output_per_minute);
-            }
+            // Use server-computed total (accurate, no drift)
+            setTotalOutput(e.total_output_today);
         },
     );
 
