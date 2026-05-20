@@ -1,9 +1,9 @@
 import { Head, usePage } from '@inertiajs/react';
-import { useEchoPublic } from '@laravel/echo-react';
 import { Activity, AlertTriangle, TrendingUp, Cpu } from 'lucide-react';
 import { useState } from 'react';
 import { MachineCard } from '@/components/machine-card';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEchoPublicClient } from '@/hooks/use-echo-public-client';
 import type { Machine } from '@/types';
 
 interface DashboardProps {
@@ -35,7 +35,7 @@ export default function Dashboard() {
     const [totalOutput, setTotalOutput] = useState(props.totalOutputToday);
 
     // Subscribe to the public 'machines' channel for realtime updates
-    useEchoPublic<MachineUpdatePayload>(
+    useEchoPublicClient<MachineUpdatePayload>(
         'machines',
         'MachineDataUpdated',
         (e) => {
@@ -55,8 +55,6 @@ export default function Dashboard() {
                         : m,
                 ),
             );
-
-            // Use server-computed total (accurate, no drift)
             setTotalOutput(e.total_output_today);
         },
     );

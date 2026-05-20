@@ -28,4 +28,10 @@ export default defineConfig({
             formVariants: true,
         }),
     ],
+    ssr: {
+        // Prevent pusher-js and echo-react from being bundled during SSR
+        // These modules access browser globals (window) and crash Node.js
+        noExternal: [],
+        external: ['@laravel/echo-react', 'pusher-js'],
+    },
 });

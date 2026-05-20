@@ -52,7 +52,7 @@ Pastikan komputer Anda sudah terinstal:
 3. **Seeding Database (Opsional):**
    Jika tersedia seeder untuk User/Mesin awal:
    ```bash
-   php artisan db:seed
+   php artisan migrate:fresh --seed
    ```
 
 ## 🏃‍♂️ Menjalankan Aplikasi Lokal
