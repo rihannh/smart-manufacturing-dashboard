@@ -1,9 +1,9 @@
 import { Head, usePage } from '@inertiajs/react';
+import { useEchoPublic } from '@laravel/echo-react';
 import { Activity, AlertTriangle, TrendingUp, Cpu } from 'lucide-react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { MachineCard } from '@/components/machine-card';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useEchoPublicClient } from '@/hooks/use-echo-public-client';
 import type { Machine } from '@/types';
 
 interface DashboardProps {
@@ -34,30 +34,29 @@ export default function Dashboard() {
     const [machines, setMachines] = useState<Machine[]>(props.machines);
     const [totalOutput, setTotalOutput] = useState(props.totalOutputToday);
 
+    const handleMachineUpdate = useCallback((e: MachineUpdatePayload) => {
+        console.log('[Dashboard] Received MachineDataUpdated:', e);
+        setMachines(prev =>
+            prev.map(m =>
+                m.id === e.id
+                    ? {
+                        ...m,
+                        status: e.status,
+                        temperature: e.temperature,
+                        output_per_minute: e.output_per_minute,
+                        operator: e.current_operator
+                            ? { ...m.operator!, name: e.current_operator }
+                            : m.operator,
+                        updated_at: e.updated_at,
+                    }
+                    : m,
+            ),
+        );
+        setTotalOutput(e.total_output_today);
+    }, []);
+
     // Subscribe to the public 'machines' channel for realtime updates
-    useEchoPublicClient<MachineUpdatePayload>(
-        'machines',
-        'MachineDataUpdated',
-        (e) => {
-            setMachines(prev =>
-                prev.map(m =>
-                    m.id === e.id
-                        ? {
-                            ...m,
-                            status: e.status,
-                            temperature: e.temperature,
-                            output_per_minute: e.output_per_minute,
-                            operator: e.current_operator
-                                ? { ...m.operator!, name: e.current_operator }
-                                : m.operator,
-                            updated_at: e.updated_at,
-                        }
-                        : m,
-                ),
-            );
-            setTotalOutput(e.total_output_today);
-        },
-    );
+    useEchoPublic('machines', 'MachineDataUpdated', handleMachineUpdate, []);
 
     // Compute live stats from machines state
     const running = machines.filter(m => m.status === 'Running').length;
