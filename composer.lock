@@ -973,16 +973,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.10.0",
+            "version": "7.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "b51ac707cfa420b7bfd4e4d5e510ba8008e822b4"
+                "reference": "b777df1776c667e287664dda75b0298ad8ae3a14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b51ac707cfa420b7bfd4e4d5e510ba8008e822b4",
-                "reference": "b51ac707cfa420b7bfd4e4d5e510ba8008e822b4",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b777df1776c667e287664dda75b0298ad8ae3a14",
+                "reference": "b777df1776c667e287664dda75b0298ad8ae3a14",
                 "shasum": ""
             },
             "require": {
@@ -1000,8 +1000,9 @@
                 "bamarni/composer-bin-plugin": "^1.8.2",
                 "ext-curl": "*",
                 "guzzle/client-integration-tests": "3.0.2",
+                "guzzlehttp/test-server": "^0.3.2",
                 "php-http/message-factory": "^1.1",
-                "phpunit/phpunit": "^8.5.39 || ^9.6.20",
+                "phpunit/phpunit": "^8.5.52 || ^9.6.34",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
             },
             "suggest": {
@@ -1079,7 +1080,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.10.0"
+                "source": "https://github.com/guzzle/guzzle/tree/7.10.1"
             },
             "funding": [
                 {
@@ -1095,20 +1096,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-23T22:36:01+00:00"
+            "time": "2026-05-19T18:01:31+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "481557b130ef3790cf82b713667b43030dc9c957"
+                "reference": "d2d8dfae4757f384d630fdffc2d8d6618d8f4c5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/481557b130ef3790cf82b713667b43030dc9c957",
-                "reference": "481557b130ef3790cf82b713667b43030dc9c957",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/d2d8dfae4757f384d630fdffc2d8d6618d8f4c5e",
+                "reference": "d2d8dfae4757f384d630fdffc2d8d6618d8f4c5e",
                 "shasum": ""
             },
             "require": {
@@ -1116,7 +1117,7 @@
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
-                "phpunit/phpunit": "^8.5.44 || ^9.6.25"
+                "phpunit/phpunit": "^8.5.52 || ^9.6.34"
             },
             "type": "library",
             "extra": {
@@ -1162,7 +1163,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/2.3.0"
+                "source": "https://github.com/guzzle/promises/tree/2.3.1"
             },
             "funding": [
                 {
@@ -1178,20 +1179,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-22T14:34:08+00:00"
+            "time": "2026-05-19T18:30:48+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.9.1",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "3780f78d6f2854cb327944a22c7b0617852ab7e9"
+                "reference": "d5ddaf5743c42a61cb6100f83dc9d5a2bafe75ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/3780f78d6f2854cb327944a22c7b0617852ab7e9",
-                "reference": "3780f78d6f2854cb327944a22c7b0617852ab7e9",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/d5ddaf5743c42a61cb6100f83dc9d5a2bafe75ca",
+                "reference": "d5ddaf5743c42a61cb6100f83dc9d5a2bafe75ca",
                 "shasum": ""
             },
             "require": {
@@ -1279,7 +1280,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.9.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.10.0"
             },
             "funding": [
                 {
@@ -1295,7 +1296,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-19T15:17:22+00:00"
+            "time": "2026-05-19T17:32:11+00:00"
         },
         {
             "name": "guzzlehttp/uri-template",
@@ -1574,16 +1575,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v13.9.0",
+            "version": "v13.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a0c6ad03b380287015287d8d5a0fa2459e2332fd"
+                "reference": "6b70133ea3552afc37307ffb85b9efa48dc187d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a0c6ad03b380287015287d8d5a0fa2459e2332fd",
-                "reference": "a0c6ad03b380287015287d8d5a0fa2459e2332fd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6b70133ea3552afc37307ffb85b9efa48dc187d1",
+                "reference": "6b70133ea3552afc37307ffb85b9efa48dc187d1",
                 "shasum": ""
             },
             "require": {
@@ -1794,7 +1795,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-05-13T15:38:40+00:00"
+            "time": "2026-05-19T20:24:39+00:00"
         },
         {
             "name": "laravel/passkeys",
@@ -9286,16 +9287,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.59.0",
+            "version": "v1.60.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "a41abad557e487eaefde6c9873085ed086fdf47a"
+                "reference": "2a1538ed22eed4210ac1e17904235032571bd89c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/a41abad557e487eaefde6c9873085ed086fdf47a",
-                "reference": "a41abad557e487eaefde6c9873085ed086fdf47a",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/2a1538ed22eed4210ac1e17904235032571bd89c",
+                "reference": "2a1538ed22eed4210ac1e17904235032571bd89c",
                 "shasum": ""
             },
             "require": {
@@ -9345,7 +9346,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2026-05-13T14:02:20+00:00"
+            "time": "2026-05-14T17:29:51+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -10968,25 +10969,25 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "7.0.2",
+            "version": "7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "016951ae10980765e4e7aee491eb288c64e505b7"
+                "reference": "c5e21b5de653ce0a769fb36f5cdfcb5e7a32cf23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/016951ae10980765e4e7aee491eb288c64e505b7",
-                "reference": "016951ae10980765e4e7aee491eb288c64e505b7",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/c5e21b5de653ce0a769fb36f5cdfcb5e7a32cf23",
+                "reference": "c5e21b5de653ce0a769fb36f5cdfcb5e7a32cf23",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=8.3",
-                "sebastian/recursion-context": "^7.0"
+                "sebastian/recursion-context": "^7.0.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^12.0"
+                "phpunit/phpunit": "^12.5.25"
             },
             "type": "library",
             "extra": {
@@ -11034,7 +11035,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
                 "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/7.0.2"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/7.0.3"
             },
             "funding": [
                 {
@@ -11054,7 +11055,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-24T06:16:11+00:00"
+            "time": "2026-05-20T04:37:17+00:00"
         },
         {
             "name": "sebastian/global-state",
@@ -11392,23 +11393,23 @@
         },
         {
             "name": "sebastian/type",
-            "version": "6.0.3",
+            "version": "6.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "e549163b9760b8f71f191651d22acf32d56d6d4d"
+                "reference": "82ff822c2edc46724be9f7411d3163021f602773"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/e549163b9760b8f71f191651d22acf32d56d6d4d",
-                "reference": "e549163b9760b8f71f191651d22acf32d56d6d4d",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/82ff822c2edc46724be9f7411d3163021f602773",
+                "reference": "82ff822c2edc46724be9f7411d3163021f602773",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^12.0"
+                "phpunit/phpunit": "^12.5.25"
             },
             "type": "library",
             "extra": {
@@ -11437,7 +11438,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
                 "security": "https://github.com/sebastianbergmann/type/security/policy",
-                "source": "https://github.com/sebastianbergmann/type/tree/6.0.3"
+                "source": "https://github.com/sebastianbergmann/type/tree/6.0.4"
             },
             "funding": [
                 {
@@ -11457,7 +11458,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-09T06:57:12+00:00"
+            "time": "2026-05-20T06:45:45+00:00"
         },
         {
             "name": "sebastian/version",
